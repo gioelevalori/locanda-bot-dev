@@ -31,10 +31,15 @@ export default () => {
       try {
         const chatMember = await ctx.api.getChatMember(chatId, userId);
         if (chatMember.status === "restricted") {
-          await ctx.api.banChatMember(chatId, userId);
+          await ctx.reply(
+            `${newMember.first_name} non ha completato la verifica e rimarrà con le restrizioni sui messaggi.`
+          );
+          await ctx.reply(
+            `Per sbloccare le restrizioni, contatta il bot in privato (/start), usa il comando /myId e comunica il numero ricevuto ad un amministratore.`
+          );
         }
       } catch (err) {
-        console.error("Errore nella rimozione dell'utente:", err);
+        console.error("Errore nella restrizione dell'utente:", err);
       }
     }, 60_000);
 
